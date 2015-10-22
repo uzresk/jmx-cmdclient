@@ -29,6 +29,7 @@ Catalina:j2eeType=Servlet,name=default,WebModule=//localhost/docs,J2EEApplicatio
 Catalina:j2eeType=Servlet,name=jsp,WebModule=//localhost/docs,J2EEApplication=none,J2EEServer=none
 Catalina:j2eeType=Filter,name=Compression Filter,WebModule=//localhost/examples,J2EEApplication=none,J2EEServer=none
 ...
+```
 
 ##### JNDI DataSource numActive ######
 
