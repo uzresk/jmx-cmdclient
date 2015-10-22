@@ -10,7 +10,13 @@
 
 ## Usage
 
-##### command #####
+#### command ####
+
+```
+java -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar [JMX Server URL] [Bean] [Attribute] [Interval]
+```
+
+or
 
 ```
 java -Dpath=[metrics file path] -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar [JMX Server URL] [Interval]
