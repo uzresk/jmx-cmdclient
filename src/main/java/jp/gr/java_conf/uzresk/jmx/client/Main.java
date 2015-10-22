@@ -26,7 +26,9 @@ import jp.gr.java_conf.uzresk.jmx.client.util.StringUtils;
 
 public class Main {
 
-	private static final Logger LOG = LoggerFactory.getLogger("CONSOLE");
+	private static final Logger LOG = LoggerFactory.getLogger("default");
+
+	private static final Logger SIMPLE_LOG = LoggerFactory.getLogger("simple");
 
 	private MBeanServerConnection mbsc = null;
 
@@ -112,13 +114,12 @@ public class Main {
 			if (isShowDomains) {
 				outputObjectNames();
 			} else {
+				// headerを取るために１回空振りさせる
+				outputAttribute(metrics);
+				init = false;
+				showHeader();
+
 				if (interval != 0) {
-
-					// headerを取るために１回空振りさせる
-					outputAttribute(metrics);
-					init = false;
-					showHeader();
-
 					while (true) {
 						try {
 							LOG.info(outputAttribute(metrics));
@@ -201,7 +202,7 @@ public class Main {
 			}
 			i++;
 		}
-		LOG.info(headerLine);
+		SIMPLE_LOG.info(headerLine);
 	}
 
 	private void outputObjectNames() {

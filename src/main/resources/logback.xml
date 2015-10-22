@@ -2,21 +2,33 @@
 <!DOCTYPE logback>
 <configuration>
 
-	<logger name="ch.qos.logabck" level="INFO" />
-
-	<property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS},%m%n" />
+	<property name="DEFAULT_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS},%m%n" />
+	<property name="SIMPLE_PATTERN" value="%m%n" />
 
 	<!-- <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} 
 		%5p ${PID:- } [%t] %-40.40logger{39} : %m%n" /> -->
-	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+	<appender name="DEFAULT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<pattern>${DEFAULT_PATTERN}</pattern>
 			<charset>UTF8</charset>
 		</encoder>
 	</appender>
 
-	<root level="INFO">
-		<appender-ref ref="CONSOLE" />
-	</root>
-	
+	<appender name="SIMPLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${SIMPLE_PATTERN}</pattern>
+			<charset>UTF8</charset>
+		</encoder>
+	</appender>
+
+	<logger name="simple" level="INFO">
+		<appender-ref ref="SIMPLE" />
+	</logger>
+
+	<logger name="default" level="INFO">
+		<appender-ref ref="DEFAULT" />
+	</logger>
+
+	<logger name="ch.qos.logback" level="ERROR" />
+	 
 </configuration>
