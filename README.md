@@ -12,11 +12,15 @@
 
 ##### command #####
 
-`java -Dpath=[metrics file path] -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar [JMX Server URL] [Polling Interval Sec]`
+```
+java -Dpath=[metrics file path] -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar [JMX Server URL] [Interval]
+```
 
 ##### ObjectName List #####
 
-`java -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085`
+```
+java -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085
+```
 
 ```
 Catalina:j2eeType=Servlet,name=default,WebModule=//localhost/,J2EEApplication=none,J2EEServer=none
@@ -25,17 +29,22 @@ Catalina:j2eeType=Servlet,name=default,WebModule=//localhost/docs,J2EEApplicatio
 Catalina:j2eeType=Servlet,name=jsp,WebModule=//localhost/docs,J2EEApplication=none,J2EEServer=none
 Catalina:j2eeType=Filter,name=Compression Filter,WebModule=//localhost/examples,J2EEApplication=none,J2EEServer=none
 ...
-```
 
 ##### JNDI DataSource numActive ######
 
-`java -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive`
+```
+java -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive
+```
 
-`2015-10-22 19:11:49.876,0`
+```
+2015-10-22 19:11:49.876,0
+```
 
 ##### JNDI DataSource numActive(You get an A in every 2 seconds) #####
 
-`java -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive 2`
+```
+java -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive 2
+```
 
 ```
 2015-10-22 19:13:14.090,numActive
@@ -47,12 +56,15 @@ Catalina:j2eeType=Filter,name=Compression Filter,WebModule=//localhost/examples,
 
 ##### JNDI DataSource numActive,numIdle #####
 
-``` metrics.sample1
+metrics.sample1
+``` 
 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name="jdbc/postgres"" "numActive"
 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name="jdbc/postgres"" "numIdle"
 ```
 
-`java -Dpath=metrics -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085`
+```
+java -Dpath=metrics -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085
+```
 
 ```
 2015-10-22 19:19:16.364,0,0
@@ -60,7 +72,9 @@ Catalina:j2eeType=Filter,name=Compression Filter,WebModule=//localhost/examples,
 
 ##### JNDI DataSource numActive,numIdle(You get an A in every 2 seconds) #####
 
-`java -Dpath=metrics -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 2`
+```
+java -Dpath=metrics -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 2
+```
 
 ```
 2015-10-22 19:20:03.368,numActive,numIdle
@@ -90,7 +104,9 @@ cat metrics.sample2
 "Catalina:type=Manager,context=/,host=localhost" "expiredSessions"
 ```
 
-`java -Dpath=metrics -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 2`
+```
+java -Dpath=metrics -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 2
+```
 
 ```
 2015-10-22 19:21:18.395,HeapMemoryUsage@committed,HeapMemoryUsage@init,HeapMemoryUsage@max,HeapMemoryUsage@used,Usage@committed,Usage@init,Usage@max,Usage@used,Usage@committed,Usage@init,Usage@max,Usage@used,numActive,numIdle,bytesSent,bytesReceived,errorCount,maxTime,requestCount,activeSessions,sessionCounter,expiredSessions
@@ -103,7 +119,7 @@ cat metrics.sample2
 
 ### package
 
-* Create jar file(mvn package) or Download jar
+Create jar file(mvn package) or Download jar
 
 ## License
 
