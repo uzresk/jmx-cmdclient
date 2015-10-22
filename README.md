@@ -64,7 +64,7 @@ metrics.sample1
 ```
 
 ```
-java -Dpath=metrics -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085
+java -Dpath=metrics.sample1 -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085
 ```
 
 ```
@@ -74,7 +74,7 @@ java -Dpath=metrics -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost
 ##### JNDI DataSource numActive,numIdle(You get an A in every 2 seconds) #####
 
 ```
-java -Dpath=metrics -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 2
+java -Dpath=metrics.sample1 -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 2
 ```
 
 ```
@@ -106,7 +106,7 @@ cat metrics.sample2
 ```
 
 ```
-java -Dpath=metrics -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 2
+java -Dpath=metrics.sample2 -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 2
 ```
 
 ```
