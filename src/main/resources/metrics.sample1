@@ -1,0 +1,2 @@
+"Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name="jdbc/postgres"" "numActive"
+"Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name="jdbc/postgres"" "numIdle"
