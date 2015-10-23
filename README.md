@@ -1,27 +1,25 @@
 # JMX CommandLine Client
 
-## Description
-
 The JMX client for the command line
 
-And can output the following
-* bean domain list
-* attribute
-correspond to CompositeDataSupport
-You it can be output in a favorite interval
-It is possible to output a plurality of attribute in csv format
+### Description
 
-## Requirement
+- And can output the bean domain list and attribute
+- correspond to CompositeDataSupport
+- You it can be output in a favorite interval
+- It is possible to output a plurality of attribute in csv format
+
+### Requirement
 
 * Java6 later
 
-## Usage
+### Usage
 
-#### Download jar ####
+##### Download jar #####
 
 https://github.com/uzresk/jmx-cmdclient/releases
 
-#### command ####
+##### command #####
 
 ```
 java -jar jmx-cmdclient-0.1.0.jar [JMX Server URL] [Bean] [Attribute] [Interval]
@@ -156,11 +154,11 @@ exec command
 java -jar -Dlogback.configurationFile=./logback.xml jmx-cmdclient-0.1.0.jar [options]
 ```
 
-## License
+### License
 
 MIT
 
-## Author
+### Author
 
 [uzresk](https://github.com/uzresk)
 
