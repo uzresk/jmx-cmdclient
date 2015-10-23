@@ -2,7 +2,14 @@
 
 ## Description
 
-* The JMX client for the command line
+The JMX client for the command line
+
+And can output the following
+* bean domain list
+* attribute
+correspond to CompositeDataSupport
+You it can be output in a favorite interval
+It is possible to output a plurality of attribute in csv format
 
 ## Requirement
 
@@ -10,24 +17,30 @@
 
 ## Usage
 
+#### Download jar ####
+
+https://github.com/uzresk/jmx-cmdclient/releases
+
 #### command ####
 
 ```
-java -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar [JMX Server URL] [Bean] [Attribute] [Interval]
+java -jar jmx-cmdclient-0.1.0.jar [JMX Server URL] [Bean] [Attribute] [Interval]
 ```
 
 or
 
 ```
-java -Dpath=[metrics file path] -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar [JMX Server URL] [Interval]
+java -Dpath=[metrics file path] -jar jmx-cmdclient-0.1.0.jar [JMX Server URL] [Interval]
 ```
 
 ##### ObjectName List #####
 
+command
 ```
-java -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085
+java -jar jmx-cmdclient-0.1.0.jar localhost:7085
 ```
 
+output result
 ```
 Catalina:j2eeType=Servlet,name=default,WebModule=//localhost/,J2EEApplication=none,J2EEServer=none
 Catalina:j2eeType=Servlet,name=jsp,WebModule=//localhost/,J2EEApplication=none,J2EEServer=none
@@ -39,20 +52,24 @@ Catalina:j2eeType=Filter,name=Compression Filter,WebModule=//localhost/examples,
 
 ##### JNDI DataSource numActive ######
 
+command
 ```
-java -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive
+java -jar jmx-cmdclient-0.1.0.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive
 ```
 
+output result
 ```
 2015-10-22 19:11:49.876,0
 ```
 
 ##### JNDI DataSource numActive(You get an A in every 2 seconds) #####
 
+command
 ```
-java -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive 2
+java -jar jmx-cmdclient-0.1.0.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive 2
 ```
 
+output result
 ```
 2015-10-22 19:13:14.090,numActive
 2015-10-22 19:13:14.092,0
@@ -69,20 +86,24 @@ metrics.sample1
 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name="jdbc/postgres"" "numIdle"
 ```
 
+command
 ```
-java -Dpath=metrics.sample1 -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085
+java -Dpath=metrics.sample1 -jar jmx-cmdclient-0.1.0.jar localhost:7085
 ```
 
+output result
 ```
 2015-10-22 19:19:16.364,0,0
 ```
 
 ##### JNDI DataSource numActive,numIdle(You get an A in every 2 seconds) #####
 
+command
 ```
-java -Dpath=metrics.sample1 -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 2
+java -Dpath=metrics.sample1 -jar jmx-cmdclient-0.1.0.jar localhost:7085 2
 ```
 
+output result
 ```
 2015-10-22 19:20:03.368,numActive,numIdle
 2015-10-22 19:20:03.370,0,0
@@ -93,7 +114,7 @@ java -Dpath=metrics.sample1 -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar l
 
 ##### You can check a variety of parameters . #####
 
-cat metrics.sample2
+metrics.sample2
 
 ```
 "java.lang:type=Memory" "HeapMemoryUsage"
@@ -111,10 +132,12 @@ cat metrics.sample2
 "Catalina:type=Manager,context=/,host=localhost" "expiredSessions"
 ```
 
+command
 ```
-java -Dpath=metrics.sample2 -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar localhost:7085 2
+java -Dpath=metrics.sample2 -jar jmx-cmdclient-0.1.0.jar localhost:7085 2
 ```
 
+output result
 ```
 2015-10-22 19:21:18.395,HeapMemoryUsage@committed,HeapMemoryUsage@init,HeapMemoryUsage@max,HeapMemoryUsage@used,Usage@committed,Usage@init,Usage@max,Usage@used,Usage@committed,Usage@init,Usage@max,Usage@used,numActive,numIdle,bytesSent,bytesReceived,errorCount,maxTime,requestCount,activeSessions,sessionCounter,expiredSessions
 2015-10-22 19:21:18.402,132251648,134217728,238616576,43923600,29884416,16777216,67108864,19941992,40632320,33554432,85393408,36589056,0,0,64697,0,2,1088,8,0,0,0
@@ -124,9 +147,14 @@ java -Dpath=metrics.sample2 -jar jmx-cmdclient-0.1.0-jar-with-dependencies.jar l
 2015-10-22 19:21:26.445,132251648,134217728,238616576,45086264,29884416,16777216,67108864,19943968,40632320,33554432,85393408,37751720,0,0,64697,0,2,1088,8,0,0,0
 ```
 
-### package
+##### You can also change the format of the output destination and date #####
 
-Create jar file(mvn package) or Download jar
+change [logback.xml](https://github.com/uzresk/jmx-cmdclient/blob/master/src/main/resources/logback.xml)
+
+exec command
+```
+java -jar -Dlogback.configurationFile=./logback.xml jmx-cmdclient-0.1.0.jar [options]
+```
 
 ## License
 
