@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -271,6 +272,12 @@ public class Main {
 				i++;
 			}
 			return value;
+		} else if (obj.getClass().isArray()) {
+			if (init) {
+				header.add(attribute);
+			}
+			Object[] objs = Arrays.asList(obj).toArray();
+			return Arrays.deepToString(objs);
 		} else {
 			if (init) {
 				header.add(attribute);
