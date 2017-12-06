@@ -66,11 +66,14 @@ public class Main {
 
 			if (args.length == 1) {
 				isShowDomains = true;
-			} else if (args.length == 3) {
-				metrics.add(new ObjectNameAttribute(args[1], args[2]));
-			} else if (args.length == 4) {
-				metrics.add(new ObjectNameAttribute(args[1], args[2]));
-				intervalStr = args[3];
+                        } else if (args.length > 2) {
+                            String[] attribs = args[2].split(",");
+                            for (String attrib: attribs) {
+                                metrics.add(new ObjectNameAttribute(args[1], attrib));
+                            }
+                            if (args.length == 4) {
+                                intervalStr = args[3];
+                            }
 			}
 		} else {
 			if (args.length == 2) {
