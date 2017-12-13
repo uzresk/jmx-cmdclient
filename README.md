@@ -4,10 +4,12 @@ The JMX client for the command line
 
 ### Description
 
-- And can output the bean domain list and attribute
-- correspond to CompositeDataSupport
-- You it can be output in a favorite interval
-- It is possible to output a plurality of attribute in csv format
+It can:
+
+- retrieve bean list from jmx,
+- retrieve multiple bean attributes as csv,
+- retrieve CompositeDataSupport as csv,
+- sample and output in a fixed interval.
 
 ### Requirement
 
@@ -19,10 +21,10 @@ The JMX client for the command line
 
 https://github.com/uzresk/jmx-cmdclient/releases
 
-##### command #####
+##### Usage #####
 
 ```
-java -jar jmx-cmdclient-0.1.0.jar [JMX Server URL] [Bean] [Attribute] [Interval]
+java -jar jmx-cmdclient-0.1.0.jar [JMX Server URL] [Bean] [Attribute(s)] [Interval]
 ```
 
 or
@@ -31,15 +33,10 @@ or
 java -Dpath=[metrics file path] -jar jmx-cmdclient-0.1.0.jar [JMX Server URL] [Interval]
 ```
 
-##### ObjectName List #####
+##### Get Bean List
 
-command
-```
-java -jar jmx-cmdclient-0.1.0.jar localhost:7085
-```
-
-output result
-```
+```shell
+$ java -jar jmx-cmdclient-0.1.0.jar localhost:7085
 Catalina:j2eeType=Servlet,name=default,WebModule=//localhost/,J2EEApplication=none,J2EEServer=none
 Catalina:j2eeType=Servlet,name=jsp,WebModule=//localhost/,J2EEApplication=none,J2EEServer=none
 Catalina:j2eeType=Servlet,name=default,WebModule=//localhost/docs,J2EEApplication=none,J2EEServer=none
@@ -48,27 +45,17 @@ Catalina:j2eeType=Filter,name=Compression Filter,WebModule=//localhost/examples,
 ...
 ```
 
-##### JNDI DataSource numActive ######
+##### Get Bean Attribute
 
-command
-```
-java -jar jmx-cmdclient-0.1.0.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive
-```
-
-output result
-```
+```shell
+$ java -jar jmx-cmdclient-0.1.0.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive
 2015-10-22 19:11:49.876,0
 ```
 
-##### JNDI DataSource numActive(You get an A in every 2 seconds) #####
+Or get bean attribute every 2 seconds
 
-command
-```
-java -jar jmx-cmdclient-0.1.0.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive 2
-```
-
-output result
-```
+```shell
+$ java -jar jmx-cmdclient-0.1.0.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive 2
 2015-10-22 19:13:14.090,numActive
 2015-10-22 19:13:14.092,0
 2015-10-22 19:13:16.094,0
@@ -76,7 +63,21 @@ output result
 2015-10-22 19:13:20.099,0
 ```
 
-##### JNDI DataSource numActive,numIdle #####
+##### Retrieve multiple attributes
+
+Retrieve multiple attributes by separate attibs with comma:
+
+```shell
+$ java -jar jmx-cmdclient-0.1.0.jar localhost:7085 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name=\"jdbc/postgres\"" numActive,numIdle 2
+2015-10-22 19:20:03.368,numActive,numIdle
+2015-10-22 19:20:03.370,0,0
+2015-10-22 19:20:05.372,0,0
+2015-10-22 19:20:07.375,0,0
+2015-10-22 19:20:09.378,0,0
+...
+```
+
+##### Retrive via a sample file
 
 metrics.sample1
 ``` 
@@ -84,30 +85,21 @@ metrics.sample1
 "Catalina:type=DataSource,context=/,host=localhost,class=javax.sql.DataSource,name="jdbc/postgres"" "numIdle"
 ```
 
-command
-```
-java -Dpath=metrics.sample1 -jar jmx-cmdclient-0.1.0.jar localhost:7085
-```
-
-output result
-```
+```shell
+$ java -Dpath=metrics.sample1 -jar jmx-cmdclient-0.1.0.jar localhost:7085
 2015-10-22 19:19:16.364,0,0
 ```
 
-##### JNDI DataSource numActive,numIdle(You get an A in every 2 seconds) #####
+Or sample output every 2 seconds:
 
-command
-```
+```shell
 java -Dpath=metrics.sample1 -jar jmx-cmdclient-0.1.0.jar localhost:7085 2
-```
-
-output result
-```
 2015-10-22 19:20:03.368,numActive,numIdle
 2015-10-22 19:20:03.370,0,0
 2015-10-22 19:20:05.372,0,0
 2015-10-22 19:20:07.375,0,0
 2015-10-22 19:20:09.378,0,0
+...
 ```
 
 ##### You can check a variety of parameters . #####
@@ -130,13 +122,8 @@ metrics.sample2
 "Catalina:type=Manager,context=/,host=localhost" "expiredSessions"
 ```
 
-command
-```
-java -Dpath=metrics.sample2 -jar jmx-cmdclient-0.1.0.jar localhost:7085 2
-```
-
-output result
-```
+```shell
+$ java -Dpath=metrics.sample2 -jar jmx-cmdclient-0.1.0.jar localhost:7085 2
 2015-10-22 19:21:18.395,HeapMemoryUsage@committed,HeapMemoryUsage@init,HeapMemoryUsage@max,HeapMemoryUsage@used,Usage@committed,Usage@init,Usage@max,Usage@used,Usage@committed,Usage@init,Usage@max,Usage@used,numActive,numIdle,bytesSent,bytesReceived,errorCount,maxTime,requestCount,activeSessions,sessionCounter,expiredSessions
 2015-10-22 19:21:18.402,132251648,134217728,238616576,43923600,29884416,16777216,67108864,19941992,40632320,33554432,85393408,36589056,0,0,64697,0,2,1088,8,0,0,0
 2015-10-22 19:21:20.414,132251648,134217728,238616576,44014024,29884416,16777216,67108864,19941992,40632320,33554432,85393408,36679480,0,0,64697,0,2,1088,8,0,0,0
